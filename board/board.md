@@ -18,9 +18,9 @@ Current milestone: \*\*M1\*\*. Only the current milestone is planned in detail. 
 
 | T-001 | user | Decide the open decisions in `project-map/product-brief.md` (at least #1, #3, #8) and fill in the Repos table | brief | – | todo |
 
-| T-002 | tester | Define the demo scenario and the ground-truth set of truly affected shots, before any implementation → `contracts/test-scenario.md` | PRD §14, §16 | – | todo |
+| T-002 | tester | Define the demo scenario and the ground-truth set of truly affected shots, before any implementation → `contracts/test-scenario.md` | PRD §14, §16 | – | done |
 
-| T-003 | designer | UI spec for Project Overview and Shot Board (fields per PRD §9.2, status not by color alone) → `contracts/ui-shot-board.md` | PRD §9.1–9.2, FR-01, FR-04, NFR-07 | – | todo |
+| T-003 | designer | UI spec for Project Overview and Shot Board (fields per PRD §9.2, status not by color alone) → `contracts/ui-shot-board.md` | PRD §9.1–9.2, FR-01, FR-04, NFR-07 | – | done |
 
 | T-004 | backend-ai | Data model contract, simplified from PRD §11, with stable IDs and versioning → `contracts/data-model.md` | PRD §11 | T-001 | todo |
 
