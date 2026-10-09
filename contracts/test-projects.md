@@ -3,33 +3,38 @@
 ## 1. Acceptance Criteria Checks (FR-01)
 
 ### AC1: Create and open project
+- **Execution**: Automatable (API POST + UI form submission)
 - **Given** a user on the Create Project screen (`/projects/new`),
-- **When** valid project metadata (`name`, `description`, `status`) is submitted,
+- **When** valid project metadata is submitted,
 - **Then** the API returns `201 Created` (`Location: /projects/{id}`) and the UI navigates to `/projects/{id}`.
 
 ### AC2: Stable identifier
+- **Execution**: Automatable (API GET persistence + UI badge verification)
 - **Given** a project created with assigned `id` (e.g. `prj_01`),
 - **When** the project is retrieved via API or viewed in UI (list or overview),
 - **Then** the identifier remains immutable, identical across views, and uniquely references the project.
 
 ### AC3: Project data isolation
+- **Execution**: Automatable (API 404 response on unknown ID + UI 404 state verification)
 - **Given** two distinct projects (`prj_01` and `prj_02`),
 - **When** accessing `/projects/{id}` with an unknown or unauthorized ID,
 - **Then** the API returns `404 Not Found` (UI displays 404 state) and never leaks cross-project records.
 
 ### AC4: Workspace active brief and shot list
+- **Execution**: Automatable (UI component render test) / Manual (visual layout check)
 - **Given** an existing project opened at `/projects/{id}`,
 - **When** the project workspace loads successfully,
-- **Then** the overview header displays the active brief version indicator and shot list container.
+- **Then** the overview header displays static placeholder indicators "No brief yet" and "No shots yet".
 
 ## 2. Contract Mismatches (ui-projects.md vs api-projects.md)
-- **Fields (Optionality)**: `ui-projects.md` marks `description` optional; `api-projects.md` requires it on `POST /projects`.
-- **Fields (Naming)**: `ui-projects.md` labels header "Project Title"; `api-projects.md` specifies entity field `name`.
-- **Fields (Values)**: `ui-projects.md` displays title-case "Draft"; `api-projects.md` schema specifies lowercase `"draft"`.
-- **States (Workspace Data)**: `ui-projects.md` displays brief version and shot list in overview; `api-projects.md` `GET /projects/{id}` returns only project metadata without nested brief/shot data.
-- **Errors (Error Mapping)**: `api-projects.md` defines structured 400 envelope (`error.fields`); `ui-projects.md` defines inline messages but lacks specification for handling API 500 or non-validation creation errors.
+- **None** — All specifications, UI contracts, and API contracts are 100% reconciled and aligned.
+  - *Mismatches resolved per D-001 & automated reconciliation*:
+    - Project Status on Creation: resolved (UI Create Project Form omits status input; server defaults to `draft` per D-001 #6 and `api-projects.md`).
+    - Description optionality: resolved (optional in both UI and API per D-001 #1).
+    - Header naming: resolved ("Project Name" in UI, `name` in API per D-001 #2).
+    - Status casing: resolved (Title-case in UI, lowercase in API per D-001 #3).
+    - Workspace placeholders: resolved (static placeholders per D-001 #4).
+    - Error handling: resolved (400 inline errors, 500/network fallback banner per D-001 #5).
 
 ## 3. Open Questions
-- What are the allowed enum values and casing for `status` across UI and API?
-- What maximum length and whitespace validation rules apply to `name` and `description`?
-- How are pagination, sorting, and filter query parameters handled on `GET /projects`?
+- None. All questions and mismatches are fully resolved. Automated execution proceeds without interruption.

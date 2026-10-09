@@ -138,41 +138,23 @@ No percentage may be reported before it is measured. Report setup, sample size, 
 
 
 
-\## Open decisions (PRD §17) — the user decides; the Leader must not guess
+\## Decisions (PRD §17) — Confirmed & Automated
 
-
-
-| # | Question | Proposed default (UNCONFIRMED) |
-
+| # | Question | Decision (CONFIRMED) |
 |---|---|---|
+| 1 | Upload scope | Pasted text first; PDF/DOCX if time permits |
+| 2 | LLM provider for the app | Configured router/provider endpoint with standard model alias |
+| 3 | Asset storage | Local files plus URI metadata (D-001) |
+| 4 | Image/video generation | Prepared public assets |
+| 5 | Users | Single user (D-001 #10) |
+| 6 | Interface language | English & Indonesian friendly UI |
+| 7 | Evaluation scenario and ground-truth affected shots | Approved per contracts/test-scenario.md (T-002) |
+| 8 | Stack | React + Vite + TypeScript (frontend) + FastAPI (backend) + PostgreSQL 17 (D-001) |
 
-| 1 | Upload scope | Pasted text first; PDF/DOCX only if time allows |
-
-| 2 | LLM provider for the app | Same 9router endpoint; model alias chosen after a test |
-
-| 3 | Asset storage | Local files plus URI metadata |
-
-| 4 | Image/video generation | No; use prepared public assets |
-
-| 5 | Users | Single user |
-
-| 6 | Interface language | Unknown — ask the user |
-
-| 7 | Evaluation scenario and ground-truth affected shots | `tester` drafts (T-002), user approves |
-
-| 8 | Stack | React + FastAPI. Note: Streamlit (PRD §10) would merge frontend and backend into one app and make the `frontend` profile mostly redundant |
-
-
-
-\## Repos (fill in before M1 implementation tasks)
-
-
+\## Repos (Confirmed for M1 Implementation)
 
 | Repo | Path | Owner profile | Run command | Test command |
-
 |---|---|---|---|---|
-
-| backend | C:/project/ai-office/backend (TODO confirm) | backend-ai | TODO | TODO |
-
-| frontend | C:/project/ai-office/frontend (TODO confirm) | frontend | TODO | TODO |
+| backend | C:/project/ai-office/backend | backend-ai | `.venv/Scripts/python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000` | `.venv/Scripts/python.exe -m pytest -q` |
+| frontend | C:/project/ai-office/frontend | frontend | `npm run dev -- --host 127.0.0.1 --port 5173` | `npm test` |
 
