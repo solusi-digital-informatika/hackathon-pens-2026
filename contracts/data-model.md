@@ -1,10 +1,9 @@
-# Project data model
+# Project & Shot data model
 
 ## Scope
-This contract defines only the Project entity needed by FR-01. Brief and shot
-records are separate project-owned entities; their schemas are outside this file.
+This contract defines the Project (FR-01) and Shot (FR-04) entities.
 
-## Project
+## 1. Project
 | Field | Type | Required | Mutable | Source |
 |---|---|---:|---:|---|
 | `id` | stable opaque string | yes | no | PRD §11 Project; FR-01 stable identifier |
@@ -14,35 +13,38 @@ records are separate project-owned entities; their schemas are outside this file
 | `created_at` | timestamp | yes | no | PRD §11 Project |
 | `updated_at` | timestamp | yes | system-managed | PRD §11 Project |
 
-## Status enum (D-001 #6)
+### Status enum (Project)
 Valid values: `draft`, `active`, `archived`. Default on create: `draft`.
 The API stores lowercase; the UI shows Title-case labels via a client-side mapping.
 
-## Validation rules (D-001 #7)
-- `name`: trimmed, 1–100 characters; whitespace-only is rejected.
-- `description`: trimmed, at most 500 characters; may be absent or empty string.
+## 2. Shot
+| Field | Type | Required | Mutable | Source |
+|---|---|---:|---:|---|
+| `id` | stable opaque string | yes | no | PRD §11 Shot; FR-04 stable ID |
+| `project_id` | string (FK to project) | yes | no | PRD §11 Shot; FR-01 isolation |
+| `sequence_order` | integer (>= 1) | yes | yes | PRD §11 Shot; FR-04 ordering |
+| `title` | string (1-100 chars) | yes | yes | PRD §11 Shot; FR-04 |
+| `description` | string (<= 1000 chars) | no | yes | PRD §11 Shot; FR-04 |
+| `status` | enum string | yes | yes | PRD §11 Shot |
+| `created_at` | timestamp | yes | no | System-assigned |
+| `updated_at` | timestamp | yes | system-managed | System-assigned |
+
+### Status enum (Shot)
+Valid values: `draft`, `in_progress`, `in_review`, `approved`. Default on create: `draft`.
+
+## Validation rules (D-001 #7, D-003)
+- Project `name`: trimmed, 1–100 characters; whitespace-only is rejected.
+- Project `description`: trimmed, at most 500 characters; may be absent or empty string.
+- Shot `title`: trimmed, 1–100 characters; whitespace-only is rejected.
+- Shot `description`: trimmed, at most 1000 characters; optional.
 
 ## Invariants
-- `id` is generated once and remains unchanged (FR-01).
-- Every brief, shot, and other project-owned record is associated with exactly one
-  `project_id`; reads through one project must not include another project's data
-  (FR-01; D-001 #11 application-level scoping).
-
-## Assumptions
-- Creating a Project does not implicitly create a brief or shots (PRD §6).
-- Timestamps are interoperable date-time strings (e.g. ISO 8601 UTC) in API responses.
-- IDs are opaque to clients; generation format is an implementation detail.
-- `created_at` and `updated_at` are system-assigned, not accepted on create.
-- No authentication in F1; a single implicit user owns all projects (D-001 #10).
-- Duplicate project names are allowed; identity is the unique ID (D-001 #9).
-- Transport-level error fields are not Project domain fields.
+- `id` for projects and shots are stable and immutable (FR-01, FR-04).
+- Every shot is associated with exactly one `project_id`; reads through one project must not include another project's data (FR-01; D-001 #11 application-level scoping).
 
 ## Changelog
 | Date | Change |
 |---|---|
-| 2026-10-09 | `description` changed to optional (D-001 #1). |
-| 2026-10-09 | `status` enum values added: draft/active/archived, default draft (D-001 #6). |
-| 2026-10-09 | Validation rules for `name` and `description` added (D-001 #7). |
-| 2026-10-09 | Isolation clarified as application-level scoping (D-001 #11). |
-| 2026-10-09 | No-auth note added; duplicate names allowed noted (D-001 #9, #10). |
-| 2026-10-09 | All open questions resolved; section removed. |
+| 2026-10-09 | F1: Reconciled Project data model per D-001. |
+| 2026-10-09 | F2: Added Shot entity and status enum per D-003 and PRD §11 (FR-04). |
+
