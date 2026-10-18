@@ -2,20 +2,28 @@
 
 Status values: `todo` · `doing` · `review` · `testing` · `done` · `blocked`
 
-Current milestone: **M4 — Finance Engine, Dashboard & Data Health**
+Current milestone: **M5 — CSV Import (Async)**
 
-## M4 — Finance Engine, Dashboard & Data Health
+## M5 — CSV Import (Async)
 
 | ID | Title | Owner | Size | Status | Repo | Commit |
 |---|---|---|---|---|---|---|
-| T-040 | UI spec for Financial Dashboard, Metrics & Data Health Indicators | designer | Standard | todo | office-hub | — |
-| T-041 | API contract for Financial Summary, Daily Trends & Data Health | backend-ai | Standard | todo | office-hub | — |
-| T-042 | Implement backend Finance Engine, Summary Aggregations & Data Health | backend-ai | Standard | todo | backend | — |
-| T-043 | Implement frontend Dashboard, Financial Metric Cards & Health Badges | frontend | Standard | todo | frontend | — |
-| T-044 | QA verification for Financial Metric Calculations & Aggregations | tester | Standard | todo | — | — |
-| T-045 | M4 Milestone review and sign-off | leader | Small | todo | — | — |
+| T-050 | UI spec for CSV Import Wizard (Upload, Mapping, Validation & Progress) | designer | Standard | todo | office-hub | — |
+| T-051 | API contract for CSV Import, Mapping, Row Validation & Async Worker | backend-ai | Standard | todo | office-hub | — |
+| T-052 | Implement backend CSV Parser, Async Batch Worker & Import Rollbacks | backend-ai | Large | todo | backend | — |
+| T-053 | Implement frontend CSV Import Wizard, Mapping & Progress Polling | frontend | Standard | todo | frontend | — |
+| T-054 | QA verification for CSV Injection, Malformed Rows, Async Recovery | tester | Large | todo | — | — |
+| T-055 | M5 Milestone review and sign-off | leader | Small | todo | — | — |
 
 ## Completed Milestones
+
+### M4 — Finance Engine, Dashboard & Data Health (Accepted)
+- T-040: UI spec for Financial Dashboard, Metrics & Data Health Indicators (designer) — `done`
+- T-041: API contract for Financial Summary, Daily Trends & Data Health (backend-ai) — `done`
+- T-042: Implement backend Finance Engine, Summary Aggregations & Data Health (backend-ai) — `fb8a4ad` (`done`)
+- T-043: Implement frontend Dashboard, Financial Metric Cards & Health Badges (frontend) — `4ed545b` (`done`)
+- T-044: QA verification for Financial Metric Calculations & Aggregations (tester) — `fb8a4ad / 4ed545b` (`done`, Verdict: APPROVE)
+- T-045: M4 Milestone review and sign-off (leader) — `done`
 
 ### M3 — Customers, Transactions & Inventory Management (Accepted)
 - T-030: UI spec for Customers, Transactions & Returns/Cancellations (designer) — `done`
