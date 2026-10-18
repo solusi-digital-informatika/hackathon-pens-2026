@@ -2,20 +2,28 @@
 
 Status values: `todo` · `doing` · `review` · `testing` · `done` · `blocked`
 
-Current milestone: **M6 — Insight Engine & Recommendations**
+Current milestone: **M7 — Financial Reports & Export**
 
-## M6 — Insight Engine & Recommendations
+## M7 — Financial Reports & Export
 
 | ID | Title | Owner | Size | Status | Repo | Commit |
 |---|---|---|---|---|---|---|
-| T-060 | UI spec for Insight Cards, Recommendations, Impact Preview & Detail Modal | designer | Standard | todo | office-hub | — |
-| T-061 | API contract for Insight Rules Engine, Dismissals & Feedback | backend-ai | Standard | todo | office-hub | — |
-| T-062 | Implement backend Deterministic Insight Engine, Rule Processors & Audit | backend-ai | Large | todo | backend | — |
-| T-063 | Implement frontend Insight Feed, Recommendation Actions & Detail Modal | frontend | Standard | todo | frontend | — |
-| T-064 | QA verification for Insight Rule Correctness, Edge Cases & Data Provenance | tester | Large | todo | — | — |
-| T-065 | M6 Milestone review and sign-off | leader | Small | todo | — | — |
+| T-070 | UI spec for Financial Reports, Interactive Filters, Comparative Views & Export Modal | designer | Standard | todo | office-hub | — |
+| T-071 | API contract for Financial Reports (P&L, Cashflow, Balance Sheet, Multi-format Export) | backend-ai | Standard | todo | office-hub | — |
+| T-072 | Implement backend Financial Aggregation Queries, Period Comparison & Export Handlers | backend-ai | Large | todo | backend | — |
+| T-073 | Implement frontend Financial Reports Dashboard, Comparative Views & Export Actions | frontend | Standard | todo | frontend | — |
+| T-074 | QA verification for Accounting Math Integrity, Boundary Periods & Export Fidelity | tester | Standard | todo | hub | — |
+| T-075 | M7 Milestone review and sign-off | leader | Small | todo | hub | — |
 
 ## Completed Milestones
+
+### M6 — Insight Engine & Recommendations (Accepted)
+- T-060: UI spec for Insight Cards, Recommendations, Impact Preview & Detail Modal (designer) — `done`
+- T-061: API contract for Insight Rules Engine, Dismissals & Feedback (backend-ai) — `done`
+- T-062: Implement backend Deterministic Insight Engine, Rule Processors & Audit (backend-ai) — `2a16809` (`done`)
+- T-063: Implement frontend Insight Feed, Recommendation Actions & Detail Modal (frontend) — `5aebead` (`done`)
+- T-064: QA verification for Insight Rule Correctness, Edge Cases & Data Provenance (tester) — `91f6d63 / 5aebead` (`done`, Verdict: APPROVE)
+- T-065: M6 Milestone review and sign-off (leader) — `done`
 
 ### M5 — CSV Import (Async) (Accepted)
 - T-050: UI spec for CSV Import Wizard (Upload, Mapping, Validation & Progress) (designer) — `done`
