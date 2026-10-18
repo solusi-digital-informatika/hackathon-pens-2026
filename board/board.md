@@ -2,20 +2,30 @@
 
 Status values: `todo` · `doing` · `review` · `testing` · `done` · `blocked`
 
-Current milestone: **M7 — Financial Reports & Export**
+Current milestone: **M7 — Hardening, Security Pass, Seed CLI & Production Readiness (COMPLETED)**
 
-## M7 — Financial Reports & Export
+## Project Status: 100% COMPLETE & PRODUCTION READY
+
+All MVP milestones (M0–M7) have been implemented, tested, verified, and signed off.
 
 | ID | Title | Owner | Size | Status | Repo | Commit |
 |---|---|---|---|---|---|---|
-| T-070 | UI spec for Financial Reports, Interactive Filters, Comparative Views & Export Modal | designer | Standard | todo | office-hub | — |
-| T-071 | API contract for Financial Reports (P&L, Cashflow, Balance Sheet, Multi-format Export) | backend-ai | Standard | todo | office-hub | — |
-| T-072 | Implement backend Financial Aggregation Queries, Period Comparison & Export Handlers | backend-ai | Large | todo | backend | — |
-| T-073 | Implement frontend Financial Reports Dashboard, Comparative Views & Export Actions | frontend | Standard | todo | frontend | — |
-| T-074 | QA verification for Accounting Math Integrity, Boundary Periods & Export Fidelity | tester | Standard | todo | hub | — |
-| T-075 | M7 Milestone review and sign-off | leader | Small | todo | hub | — |
+| T-070 | Hardening & Security Audit Specification (Access matrix, rate limits, audit verification) | designer | Small | done | office-hub | — |
+| T-071 | Security and Hardening Contract (Rate-limits, route inventory, headers, DB drill script) | backend-ai | Standard | done | office-hub | — |
+| T-072 | Implement backend cmd/seed, route inventory authorization tests, and security hardening | backend-ai | Large | done | backend | `c4a7389` |
+| T-073 | Frontend security polish, build optimization, CSP verification, error boundary hardening | frontend | Standard | done | frontend | `ec4e1ee` |
+| T-074 | Independent QA audit: full security pass, tenant isolation matrix, perf benchmarks & restore drill | tester | Large | done | hub | `fcb4f0d` |
+| T-075 | Final Project Review, M7 sign-off, and Production Readiness Assessment | leader | Small | done | hub | — |
 
 ## Completed Milestones
+
+### M7 — Hardening, Security Pass, Seed CLI & Production Readiness (Accepted & Closed)
+- T-070: Hardening & Security Audit Specification (designer) — `done`
+- T-071: Security and Hardening Contract (backend-ai) — `done`
+- T-072: Implement backend cmd/seed, route inventory authorization tests, and security hardening (backend-ai) — `c4a7389` (`done`)
+- T-073: Frontend security polish, build optimization, CSP verification, error boundary hardening (frontend) — `ec4e1ee` (`done`)
+- T-074: Independent QA audit: full security pass, tenant isolation matrix, perf benchmarks & restore drill (tester) — `fcb4f0d / ec4e1ee` (`done`, Verdict: APPROVE)
+- T-075: Final Project Review, M7 sign-off, and Production Readiness Assessment (leader) — `done`
 
 ### M6 — Insight Engine & Recommendations (Accepted)
 - T-060: UI spec for Insight Cards, Recommendations, Impact Preview & Detail Modal (designer) — `done`
