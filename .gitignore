@@ -1,0 +1,9 @@
+# Repositories managed separately
+backend/
+frontend/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

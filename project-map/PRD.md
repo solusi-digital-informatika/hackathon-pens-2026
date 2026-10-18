@@ -1,764 +1,1332 @@
 # Product Requirements Document (PRD)
-## AI Production Workflow Assistant
 
-| Field | Details |
-|---|---|
-| Product name | AI Production Workflow Assistant |
-| Document type | Product Requirements Document (PRD) |
-| Version | 1.0 |
-| Status | Draft for hackathon MVP |
-| Primary audience | Small AI VFX and creative production teams |
-| Context | AI-assisted video/VFX production, including distributed teams such as Tokyo–Surabaya |
-| Core principle | Adaptation over regeneration; human creative decisions remain authoritative |
+# Teman UMKM
+
+**Product type:** AI-Powered Business Decision Support Platform  
+**Platform:** Web Application  
+**Target market:** UMKM di Indonesia  
+**Initial segment:** UMKM penjual barang fisik, terutama bisnis makanan dan reseller  
+**Document status:** Draft v1.0  
+**Product stage:** MVP  
+**Primary language:** Bahasa Indonesia
 
 ---
 
-## 1. Executive Summary
+## 1. Product Overview
 
-AI Production Workflow Assistant is a workflow coordination application for small creative teams producing AI-assisted video, animation, and VFX. It helps teams convert large and fragmented project briefs into structured production plans, maintain shared project knowledge, and respond to changing creative direction without unnecessarily discarding prior work.
+### 1.1. Product Vision
 
-The product addresses a recurring production challenge: a director changes a brief or visual direction late in the schedule, but the team cannot quickly determine which shots, prompts, references, and deliverables are affected. This creates misunderstandings, avoidable regeneration, rework, inconsistent output, and schedule risk.
+Teman UMKM adalah platform pendukung keputusan bisnis berbasis data yang membantu pemilik UMKM memahami kondisi keuangan, profitabilitas produk, perilaku pelanggan, dan prioritas tindakan bisnis melalui satu sistem yang sederhana dan mudah dipahami.
 
-The MVP will demonstrate a complete change-resilient workflow:
+Produk ini dirancang untuk membantu pemilik usaha beralih dari pengambilan keputusan berdasarkan intuisi semata menuju keputusan yang didukung oleh data transaksi, perhitungan keuangan yang transparan, dan analisis kontekstual.
 
-1. Import a project brief and public reference assets.
-2. Extract requirements, constraints, creative direction, and unresolved questions.
-3. Convert the brief into a structured shot list.
-4. Record shot descriptions, prompts, assets, status, and version history.
-5. Enter a new creative direction and compare it with the previous version.
-6. Identify potentially affected shots and explain why they may be affected.
-7. Recommend whether each shot should be retained, adapted, reviewed, or regenerated.
-8. Allow a human to approve or override recommendations.
-9. Produce an updated storyboard while preserving prior versions.
+Dalam jangka panjang, Teman UMKM akan berkembang menjadi AI Business Operator yang bukan hanya menganalisis bisnis, tetapi juga membantu pemilik usaha menjalankan pekerjaan operasional secara lebih efisien.
 
-The MVP is not intended to replace creative judgment, generate a finished film autonomously, or serve as a complete professional editing/VFX suite.
+### 1.2. Problem Statement
 
-## 2. Problem Statement
+Banyak pemilik UMKM menjalankan bisnis melalui kombinasi spreadsheet, buku catatan, aplikasi kasir, marketplace, dan percakapan dengan pelanggan. Informasi tersebut sering kali tersebar dan tidak membentuk gambaran bisnis yang utuh.
 
-Creative production information is commonly spread across briefs, reference files, feedback, chat messages, prompts, and generated assets. These sources may change during production. When a direction changes, team members may not share the same understanding of the latest requirements or know which existing work remains usable.
+Akibatnya, pemilik usaha dapat mengalami kesulitan dalam:
 
-This creates several connected problems:
+- Menentukan harga jual berdasarkan biaya dan margin yang diinginkan.
+- Mengetahui keuntungan aktual dari setiap produk.
+- Membedakan omzet, laba, dan arus kas.
+- Mengidentifikasi pelanggan yang mulai tidak aktif.
+- Menentukan produk atau pelanggan yang perlu diprioritaskan.
+- Mengubah data transaksi menjadi tindakan bisnis yang konkret.
 
-- Large briefs take time to interpret and translate into executable tasks.
-- Requirements and decisions are scattered across multiple sources.
-- Direction changes do not automatically map to affected shots and assets.
-- Previous versions and the reasons behind decisions are difficult to trace.
-- Existing shots may become stale, while potentially reusable assets are overlooked.
-- AI-generated outputs may not match the intended visual style or shot requirements.
-- Dependencies between characters, visual style, shots, and deliverables are hidden.
-- Production knowledge can be concentrated in a few experienced individuals.
-- Rework and schedule impacts are difficult to estimate quickly.
-- Individual shots may look acceptable but lack consistency as a sequence.
+Pencatatan transaksi saja belum cukup. Pemilik usaha membutuhkan sistem yang mampu menjelaskan apa yang sedang terjadi, mengapa hal tersebut penting, dan tindakan apa yang dapat dipertimbangkan.
 
-### Core problem statement
+### 1.3. Product Goal
 
-**How might we help small AI-assisted creative teams understand, trace, and respond to changing production direction while preserving useful work and maintaining a shared source of truth?**
+Tujuan utama Teman UMKM adalah mengurangi kesenjangan antara pencatatan bisnis dan pengambilan keputusan bisnis.
 
-## 3. Product Vision
+Produk harus mampu:
 
-Make creative production workflows more resilient to change by connecting project knowledge, creative decisions, shot-level work, assets, and deliverables in one traceable workspace.
+1. Mengubah data usaha yang tersebar menjadi informasi terstruktur.
+2. Menghitung metrik keuangan dengan formula yang transparan.
+3. Menghubungkan data pelanggan, transaksi, produk, interaksi, dan keluhan.
+4. Mengidentifikasi risiko atau peluang yang didukung oleh bukti.
+5. Memberikan rekomendasi tindakan yang dapat diperiksa dan diputuskan oleh pemilik usaha.
 
-### Product principles
+### 1.4. Product Principles
 
-1. **Shared project memory:** team members work from the same current project information.
-2. **Traceability:** each shot and asset can be traced to the relevant requirements and direction version.
-3. **Adaptation over regeneration:** assess whether work can be retained or adapted before recommending regeneration.
-4. **Human-in-the-loop:** AI suggests and explains; authorized people make creative approvals.
-5. **Evidence-aware AI:** recommendations should reference the requirements, changes, or dependencies that support them.
-6. **Resilience over isolated features:** the complete workflow should remain understandable when direction changes or a key person is unavailable.
-7. **Public-data-only demo:** the hackathon prototype must not require confidential client footage.
+**Accuracy before intelligence**
 
-## 4. Goals and Non-Goals
+Perhitungan keuangan harus menggunakan formula deterministik yang dapat diuji. AI tidak boleh menjadi sumber utama perhitungan angka keuangan.
 
-### 4.1 Goals
+**Explainable by default**
 
-- Reduce the time needed to understand a brief.
-- Turn unstructured creative requirements into a structured shot plan.
-- Make direction changes visible and traceable.
-- Identify potentially affected shots and related assets.
-- Preserve historical versions of briefs, prompts, and shot assets.
-- Help users decide what to retain, adapt, review, or regenerate.
-- Maintain a shared project view for distributed collaborators.
-- Demonstrate measurable value with a controlled hackathon scenario.
+Setiap insight harus menjelaskan bukti, periode data, asumsi, dan keterbatasannya.
 
-### 4.2 Non-goals
+**Owner stays in control**
 
-- Replacing the director, artist, editor, or other creative decision-makers.
-- Fully automating creative approval.
-- Building a full video editor, compositing tool, or digital asset management platform.
-- Guaranteeing that an AI-generated asset satisfies all artistic requirements.
-- Building a production-grade multi-tenant enterprise platform during the hackathon.
-- Using confidential client footage or restricted assets.
-- Requiring a custom video-generation model as a condition for the MVP.
+Pemilik usaha tetap memegang kendali atas keputusan harga, promosi, pengeluaran, komunikasi pelanggan, dan tindakan bisnis lainnya.
 
-## 5. Target Users and Personas
+**Simple for non-technical users**
 
-### Persona A — Creative Director
+Pengguna tidak harus memahami akuntansi, data analytics, atau prompt engineering untuk mendapatkan manfaat produk.
 
-**Needs**
-- Communicate new creative direction clearly.
-- Understand the consequences of a change before approving it.
-- Review alternatives and maintain authority over creative decisions.
+**Progressive automation**
 
-**Pain points**
-- Repeating instructions across team members.
-- Discovering too late that old shots no longer match the brief.
-- Difficulty knowing which parts of the production plan are affected.
+Produk dimulai dari pencatatan dan analisis, kemudian berkembang menuju rekomendasi dan eksekusi tindakan yang membutuhkan persetujuan pengguna.
 
-### Persona B — AI VFX / Creative Producer
+---
 
-**Needs**
-- Translate the brief into tasks and a shot plan.
-- Track shot status, versions, dependencies, and pending approvals.
-- Identify schedule risks and prevent avoidable rework.
+## 2. Target Users and Personas
 
-**Pain points**
-- Manually reconciling documents and feedback.
-- Tracking multiple generated alternatives.
-- Coordinating changes across a small team.
+### 2.1. Primary Persona: UMKM Owner
 
-### Persona C — AI Artist / Shot Creator
+Karakteristik:
 
-**Needs**
-- Understand the current requirements for each shot.
-- Access relevant references and previously successful prompts.
-- Know what changed and what must be revised.
+- Mengelola bisnis sendiri atau dengan tim kecil.
+- Menjual produk fisik, seperti makanan, minuman, atau barang reseller.
+- Mencatat transaksi menggunakan spreadsheet, buku, atau aplikasi sederhana.
+- Memiliki pelanggan berulang.
+- Tidak selalu mempunyai staf keuangan atau analis bisnis.
 
-**Pain points**
-- Working from outdated instructions.
-- Repeating experiments because previous attempts are hard to find.
-- Receiving feedback without clear links to the requirements.
+Kebutuhan utama:
 
-### Persona D — Distributed Collaborator
+- Mengetahui laba dan margin produk.
+- Memahami kondisi keuangan usaha.
+- Mengetahui pelanggan yang masih aktif dan yang mulai tidak aktif.
+- Mendapatkan rekomendasi bisnis yang praktis.
+- Menghemat waktu dalam mengolah data.
 
-**Needs**
-- Access the current project state regardless of location.
-- Understand the latest approved direction and shot versions.
-- Continue work without relying on verbal handover alone.
+### 2.2. Secondary Persona: Operational Staff
 
-**Pain points**
-- Time-zone and communication gaps.
-- Unclear source of truth.
-- Missing context when a colleague is unavailable.
+Karakteristik:
 
-## 6. Primary User Journey
+- Membantu memasukkan transaksi atau memperbarui data usaha.
+- Membutuhkan alur input yang cepat.
+- Tidak selalu memiliki kewenangan mengambil keputusan finansial.
 
-1. A producer creates a project.
-2. The producer imports a brief and public reference assets.
-3. The AI extracts requirements, constraints, visual direction, and open questions.
-4. A human reviews and corrects the extracted information.
-5. The system proposes a shot list and initial storyboard plan.
-6. The team adds prompts and assets to individual shots.
-7. A director submits a revised creative direction.
-8. The system compares the new direction against the active version.
-9. The system maps changed requirements to related shots and assets.
-10. The system presents recommendations with explanations and supporting context.
-11. An authorized user approves, rejects, or modifies each recommendation.
-12. The team adapts or regenerates selected assets and saves new versions.
-13. The storyboard reflects the latest approved state while older versions remain accessible.
-14. The team reviews quality and deliverable readiness.
+Kebutuhan utama:
 
-## 7. Functional Requirements
+- Memasukkan data secara konsisten.
+- Meminimalkan kesalahan input.
+- Mengetahui transaksi yang belum lengkap.
+- Bekerja tanpa harus memahami seluruh analisis bisnis.
+
+### 2.3. Initial Customer Profile
+
+MVP memprioritaskan UMKM yang:
+
+- Menjual barang fisik.
+- Memiliki data transaksi yang dapat dikumpulkan.
+- Memiliki produk dengan biaya yang bisa diestimasi.
+- Memiliki kemungkinan pelanggan melakukan pembelian berulang.
+- Bersedia mencoba pencatatan yang lebih terstruktur.
+
+Teman UMKM tidak ditujukan untuk semua jenis bisnis pada tahap awal. Validasi pertama harus dilakukan pada satu segmen yang cukup homogen agar kebutuhan dan pola transaksi dapat dipahami dengan baik.
+
+---
+
+## 3. Jobs to Be Done
+
+Ketika mengelola bisnis, pemilik usaha ingin:
+
+1. Mengetahui apakah penjualan yang meningkat benar-benar meningkatkan keuntungan.
+2. Mengetahui produk mana yang menghasilkan margin lebih baik.
+3. Memahami berapa harga jual yang masuk akal berdasarkan biaya.
+4. Mengetahui pelanggan mana yang menunjukkan perubahan pola pembelian.
+5. Memahami penyebab perubahan performa bisnis berdasarkan data yang tersedia.
+6. Mendapatkan langkah berikutnya tanpa harus menganalisis spreadsheet secara manual.
+
+### Core Job
+
+"Ketika saya mengelola usaha, bantu saya memahami kondisi bisnis berdasarkan data yang saya miliki dan menentukan tindakan yang paling masuk akal, tanpa harus menjadi analis keuangan atau data."
+
+---
+
+## 4. Product Scope
+
+### 4.1. MVP — In Scope
+
+MVP mencakup:
+
+1. Authentication dan business profile.
+2. Product management.
+3. Cost of Goods Sold (COGS/HPP) dan kalkulasi harga.
+4. Sales transaction recording.
+5. Data import melalui CSV atau spreadsheet.
+6. Financial summary dan profit analysis.
+7. Customer-linked transaction history.
+8. Simple business context graph.
+9. Customer activity dan risk insight.
+10. Explainable recommendation engine.
+11. Dashboard dan insight detail.
+12. Data validation dan import error handling.
+
+### 4.2. Out of Scope for MVP
+
+Fitur berikut tidak menjadi bagian dari MVP:
+
+- Integrasi langsung dengan WhatsApp Business API.
+- Integrasi otomatis dengan marketplace.
+- Integrasi POS secara langsung.
+- Sinkronisasi otomatis rekening bank.
+- Akuntansi dan pelaporan pajak lengkap.
+- Inventory management yang kompleks.
+- Supplier management.
+- Payroll dan human resources.
+- Forecasting berbasis machine learning.
+- Autonomous AI yang dapat melakukan transaksi tanpa persetujuan.
+- Multi-branch management.
+- Multi-user role management yang kompleks.
+- Pengiriman promosi otomatis kepada pelanggan.
+- Sistem kredit atau pemberian pinjaman.
+
+Fitur-fitur tersebut dapat dipertimbangkan setelah kebutuhan utama tervalidasi.
+
+---
+
+## 5. Functional Requirements
 
 Priority definitions:
 
-- **P0 — Must have:** essential to demonstrate the core value proposition.
-- **P1 — Should have:** useful if implementation time allows.
-- **P2 — Could have:** optional enhancement outside the core demo.
+- **P0:** Wajib tersedia untuk MVP.
+- **P1:** Penting, tetapi dapat ditambahkan setelah alur utama berjalan.
+- **P2:** Pengembangan lanjutan.
 
-### FR-01 — Project Creation and Workspace
+### 5.1. Authentication and Business Setup
 
-**Priority:** P0
+**Priority: P0**
 
-The system shall allow a user to create a project with a name, short description, and project status.
+#### Requirements
 
-**Acceptance criteria**
-- A user can create and open a project.
-- Each project has a stable identifier.
-- Project data is separated from other projects.
-- The workspace shows the active brief version and shot list.
+- Pengguna dapat membuat akun dan login.
+- Pengguna dapat membuat profil usaha.
+- Sistem menyimpan nama usaha, kategori, mata uang, zona waktu, dan preferensi dasar.
+- Pengguna dapat mengatur periode laporan.
+- Data setiap usaha harus terisolasi dari usaha lainnya.
 
-### FR-02 — Brief and Reference Ingestion
+#### Acceptance Criteria
 
-**Priority:** P0
+- Pengguna yang belum login tidak dapat mengakses data privat.
+- Pengguna hanya dapat mengakses data bisnis yang menjadi haknya.
+- Sistem menggunakan zona waktu Asia/Jakarta sebagai default untuk bisnis Indonesia.
+- Periode laporan ditampilkan secara konsisten.
 
-The system shall accept a brief and relevant reference materials for a project.
+### 5.2. Product Management
 
-**MVP inputs**
-- Plain text.
-- PDF or DOCX if parsing support is available.
-- Public reference images or image URLs.
+**Priority: P0**
 
-**Acceptance criteria**
-- The user can add or paste a brief.
-- The system records the source name and import time.
-- The original source remains accessible or its relevant content is preserved.
-- Unsupported files produce a clear error rather than silently failing.
-- The demo does not require confidential footage.
+#### Requirements
 
-### FR-03 — AI Brief Analysis
+Pengguna dapat:
 
-**Priority:** P0
+- Menambahkan produk.
+- Mengubah informasi produk.
+- Menonaktifkan produk.
+- Menentukan SKU atau kode produk opsional.
+- Menentukan satuan produk.
+- Menentukan harga jual.
+- Menentukan komponen biaya produk.
+- Melihat riwayat perubahan biaya dan harga yang relevan.
 
-The system shall extract structured project information from the brief.
+#### Product Data
 
-**Expected fields**
-- Project objective and summary.
-- Creative direction and visual style.
-- Characters, locations, and key objects.
-- Requirements and constraints.
-- Deliverables.
-- Acceptance criteria, when specified.
-- Ambiguities and unresolved questions.
-- Source references or excerpts supporting important extracted items, where feasible.
+- Product ID.
+- Business ID.
+- Product name.
+- SKU.
+- Category.
+- Unit of measure.
+- Selling price.
+- Status.
+- Created at.
+- Updated at.
 
-**Acceptance criteria**
-- The result is displayed in editable fields.
-- Users can correct the AI output.
-- Uncertain or missing information is marked as unknown or requiring review.
-- The system does not invent a requirement merely to fill a field.
-- The reviewed information becomes the project's active structured brief.
+Produk yang sudah memiliki transaksi tidak boleh dihapus secara permanen jika penghapusan tersebut merusak histori transaksi.
 
-### FR-04 — Shot List and Storyboard Planning
+### 5.3. HPP and Pricing Calculator
 
-**Priority:** P0
+**Priority: P0**
 
-The system shall create an editable shot list from the reviewed brief.
+#### Requirements
 
-**Minimum shot fields**
-- Shot ID.
+Pengguna dapat memasukkan komponen biaya untuk menghitung estimasi HPP produk.
+
+Komponen dapat meliputi:
+
+- Bahan baku atau harga pembelian.
+- Kemasan.
+- Biaya produksi langsung.
+- Biaya langsung lainnya.
+- Alokasi biaya tambahan yang relevan.
+
+Sistem harus memperlihatkan komponen perhitungan dan hasilnya secara transparan.
+
+#### Core Formulas
+
+HPP per unit:
+
+`HPP per unit = Total biaya yang dialokasikan / Jumlah unit yang dihasilkan`
+
+Laba kotor per unit:
+
+`Laba kotor per unit = Harga jual per unit - HPP per unit`
+
+Gross margin:
+
+`Gross margin (%) = (Laba kotor per unit / Harga jual per unit) × 100%`
+
+Harga jual berdasarkan target margin:
+
+`Harga jual = HPP per unit / (1 - Target margin)`
+
+Target margin harus berada di antara 0% dan 100%.
+
+Catatan: target margin berbeda dari markup. Biaya platform, diskon, biaya pembayaran, pajak, dan biaya lain harus diperhitungkan jika relevan. Sistem tidak boleh mengklaim bahwa laba kotor adalah laba bersih.
+
+#### Acceptance Criteria
+
+- Hasil perhitungan dapat direproduksi menggunakan formula yang sama.
+- Sistem menolak input biaya atau kuantitas yang tidak valid.
+- Sistem menampilkan komponen biaya yang digunakan.
+- Sistem memperingatkan pengguna jika harga jual berada di bawah HPP.
+- Perubahan HPP tidak mengubah histori transaksi lama secara diam-diam.
+
+### 5.4. Sales Transaction Recording
+
+**Priority: P0**
+
+#### Requirements
+
+Pengguna dapat:
+
+- Membuat transaksi penjualan.
+- Memilih satu atau lebih produk.
+- Menentukan kuantitas.
+- Mencatat harga aktual.
+- Mencatat diskon dan biaya transaksi jika tersedia.
+- Menghubungkan transaksi dengan pelanggan.
+- Mencatat tanggal transaksi.
+- Mengubah atau membatalkan transaksi dengan audit trail.
+- Melihat histori transaksi.
+
+Pelanggan baru dapat dibuat ketika transaksi dicatat.
+
+#### Transaction Data
+
+- Transaction ID.
+- Business ID.
+- Customer ID, optional.
+- Transaction date.
+- Transaction status.
+- Line items.
+- Quantity.
+- Unit selling price.
+- Discount.
+- Additional fees, if applicable.
+- Recorded cost snapshot.
+- Payment status, when captured.
+- Source.
+- Created at.
+- Updated at.
+
+#### Acceptance Criteria
+
+- Transaksi harus memiliki minimal satu item.
+- Kuantitas harus lebih besar dari nol.
+- Harga dan nilai transaksi harus divalidasi.
+- Sistem menyimpan snapshot biaya yang digunakan untuk analisis transaksi.
+- Transaksi yang dibatalkan tidak dihitung sebagai penjualan valid.
+- Perubahan transaksi harus dapat ditelusuri.
+
+### 5.5. CSV and Spreadsheet Import
+
+**Priority: P0**
+
+Impor data menjadi jalur utama untuk membawa data usaha yang telah dimiliki pengguna ke dalam sistem tanpa membutuhkan integrasi eksternal.
+
+#### Requirements
+
+- Pengguna dapat mengunggah file CSV.
+- Sistem menyediakan contoh template CSV.
+- Sistem menampilkan preview data sebelum impor.
+- Sistem memungkinkan pemetaan kolom.
+- Sistem memvalidasi format dan nilai.
+- Sistem menampilkan baris yang gagal diproses beserta alasannya.
+- Pengguna dapat mengonfirmasi proses impor.
+- Sistem memberikan ringkasan jumlah data yang berhasil dan gagal.
+
+#### Import Flow
+
+1. Upload file.
+2. Parse file.
+3. Preview data.
+4. Map columns.
+5. Validate rows.
+6. Display warnings and errors.
+7. Confirm import.
+8. Process valid rows.
+9. Display import summary.
+
+#### Acceptance Criteria
+
+- File yang tidak valid tidak boleh menyebabkan data bisnis rusak.
+- Kesalahan pada satu baris tidak boleh menyebabkan seluruh impor gagal tanpa penjelasan.
+- Sistem mendeteksi potensi duplikasi.
+- Sistem tidak melakukan penggabungan pelanggan secara otomatis jika identitasnya ambigu.
+- Pengguna mengetahui data mana yang berhasil diproses.
+
+### 5.6. Financial Dashboard
+
+**Priority: P0**
+
+#### Requirements
+
+Dashboard menampilkan:
+
+- Total penjualan.
+- Jumlah transaksi.
+- Total diskon jika tersedia.
+- Estimasi HPP penjualan.
+- Estimasi laba kotor.
+- Gross margin.
+- Produk dengan penjualan tertinggi.
+- Produk dengan margin tertinggi.
+- Perbandingan antarperiode.
+- Status kelengkapan data.
+
+Dashboard harus menyediakan filter periode.
+
+#### Calculation Rules
+
+Total penjualan bersih:
+
+`Net sales = Gross sales - Discounts - Returns, when recorded`
+
+Pendapatan penjualan tidak boleh otomatis dianggap sebagai kas yang sudah diterima.
+
+Estimasi laba kotor:
+
+`Gross profit = Net sales - COGS of valid sales`
+
+Gross margin:
+
+`Gross margin (%) = Gross profit / Net sales × 100%`
+
+Jika net sales bernilai nol, margin harus ditampilkan sebagai tidak tersedia, bukan menghasilkan pembagian dengan nol.
+
+Laporan harus membedakan:
+
+- Penjualan.
+- Pembayaran yang diterima, jika datanya tersedia.
+- Laba kotor.
+- Estimasi biaya lainnya.
+- Laba bersih, hanya jika komponen biaya yang dibutuhkan telah tercatat secara memadai.
+
+#### Acceptance Criteria
+
+- Angka dashboard konsisten dengan transaksi valid.
+- Perubahan filter memperbarui seluruh metrik yang relevan.
+- Data yang belum lengkap ditandai.
+- Sistem tidak menampilkan estimasi laba sebagai angka pasti tanpa penjelasan asumsi.
+
+### 5.7. Customer Management and Transaction History
+
+**Priority: P0**
+
+#### Requirements
+
+Pengguna dapat:
+
+- Membuat dan memperbarui profil pelanggan.
+- Melihat transaksi pelanggan.
+- Melihat tanggal pembelian terakhir.
+- Melihat frekuensi transaksi.
+- Melihat total nilai pembelian dalam periode tertentu.
+- Melihat produk yang pernah dibeli.
+- Melihat catatan interaksi atau keluhan jika tersedia.
+
+#### Customer Data
+
+- Customer ID.
+- Business ID.
+- Display name.
+- Contact identifier, optional.
+- Identity mapping.
+- First transaction date.
+- Last transaction date.
+- Transaction count.
+- Customer notes, optional.
+
+Sistem harus mendukung pelanggan tanpa nomor telepon, karena tidak semua data historis mempunyai identitas lengkap.
+
+#### Acceptance Criteria
+
+- Pelanggan dapat ditautkan ke beberapa transaksi.
+- Data transaksi tetap dapat digunakan walaupun identitas pelanggan belum diketahui.
+- Penggabungan dua profil pelanggan memerlukan konfirmasi jika terdapat ambiguitas.
+- Data pelanggan tidak boleh digabung hanya berdasarkan kemiripan nama.
+
+### 5.8. Business Context Graph
+
+**Priority: P0**
+
+Teman UMKM membangun hubungan antarentitas bisnis untuk mendukung analisis kontekstual.
+
+#### Core Entities
+
+- Business.
+- Product.
+- Customer.
+- Transaction.
+- Transaction Item.
+- Interaction.
+- Complaint.
+- Insight.
+- Recommended Action.
+
+#### Core Relationships
+
+- Customer melakukan Transaction.
+- Transaction memiliki Transaction Item.
+- Transaction Item mengacu pada Product.
+- Customer memiliki Interaction.
+- Customer dapat memiliki Complaint.
+- Insight dihasilkan dari data transaksi dan hubungan terkait.
+- Recommended Action terkait dengan Insight.
+
+#### Requirements
+
+- Hubungan data harus memiliki referensi yang konsisten.
+- Analisis harus dapat menelusuri data sumber yang mendukungnya.
+- Data yang tidak memiliki identitas pasti tidak boleh dihubungkan secara spekulatif.
+- Model data dapat dikembangkan tanpa mewajibkan penggunaan graph database pada MVP.
+
+Implementasi awal dapat menggunakan relational database dengan foreign key dan query yang sesuai. Graph database hanya dipertimbangkan jika kebutuhan teknis dan skala sudah membenarkannya.
+
+### 5.9. Customer Activity and Risk Insight
+
+**Priority: P0**
+
+#### Objective
+
+Mengidentifikasi perubahan pola pembelian pelanggan yang mungkin memerlukan perhatian pemilik usaha.
+
+#### Initial Signals
+
+- Pelanggan yang biasanya membeli secara berkala tetapi belum membeli kembali.
+- Penurunan frekuensi pembelian.
+- Penurunan nilai transaksi.
+- Keluhan yang belum ditindaklanjuti.
+- Pelanggan dengan nilai pembelian tinggi yang menunjukkan perubahan aktivitas.
+
+#### Requirements
+
+- Sistem menganalisis histori transaksi pelanggan.
+- Sistem mempertimbangkan jarak antartransaksi jika datanya memadai.
+- Sistem menampilkan bukti dan periode analisis.
+- Sistem menjelaskan keterbatasan data.
+- Pengguna dapat membuka histori yang mendukung suatu insight.
+
+#### Example Insight
+
+"Rina biasanya melakukan pembelian setiap 14–21 hari. Transaksi terakhir tercatat 35 hari lalu. Pelanggan ini mungkin memerlukan tindak lanjut."
+
+Insight tersebut harus menampilkan:
+
+- Tanggal transaksi terakhir.
+- Jumlah transaksi yang menjadi dasar analisis.
+- Pola pembelian historis.
+- Periode pengamatan.
+- Penjelasan bahwa perubahan aktivitas tidak membuktikan pelanggan telah berhenti membeli.
+
+#### Guardrails
+
+- Sistem tidak boleh menyatakan bahwa pelanggan pasti akan berhenti membeli.
+- Sistem tidak boleh membuat klaim tentang alasan pelanggan tanpa bukti.
+- Pelanggan baru dengan histori terbatas tidak boleh diberi label risiko yang tidak berdasar.
+- Ambang batas analisis harus dapat dijelaskan dan dievaluasi.
+- Risiko hubungan pelanggan harus dibedakan dari risiko keuangan usaha.
+
+### 5.10. Explainable Recommendation Engine
+
+**Priority: P0**
+
+#### Objective
+
+Mengubah metrik dan insight menjadi rekomendasi tindakan yang dapat dipertimbangkan pemilik usaha.
+
+#### Recommendation Examples
+
+- Meninjau kembali harga produk dengan margin rendah.
+- Memeriksa komponen biaya yang belum tercatat.
+- Menindaklanjuti pelanggan yang melewati pola pembelian biasanya.
+- Memeriksa keluhan pelanggan yang belum diselesaikan.
+- Membandingkan performa produk antarperiode.
+- Memvalidasi data sebelum mengambil keputusan.
+
+#### Recommendation Structure
+
+Setiap rekomendasi harus memiliki:
+
 - Title.
 - Description.
-- Relevant requirements.
-- Reference assets.
-- Prompt or generation instructions.
-- Dependencies, if known.
-- Current status.
-- Current version.
+- Supporting evidence.
+- Reasoning.
+- Data period.
+- Assumptions.
+- Limitations.
+- Suggested action.
+- Priority.
+- Status.
+- Creation timestamp.
 
-**Acceptance criteria**
-- The user can add, edit, reorder, and remove a shot.
-- Every shot has a stable ID independent of its version.
-- The shot list can be displayed as a storyboard or ordered list.
-- AI-generated plans remain editable by a human.
+#### Recommendation Status
 
-### FR-05 — Shot Asset and Prompt Tracking
+- New.
+- Reviewed.
+- In Progress.
+- Completed.
+- Dismissed.
 
-**Priority:** P0
+#### Requirements
 
-The system shall associate prompts and generated/reference assets with the relevant shot.
+- Rekomendasi memiliki referensi terhadap data yang mendukungnya.
+- Rekomendasi dapat diabaikan oleh pemilik usaha.
+- Rekomendasi tidak otomatis menjalankan transaksi finansial.
+- Sistem membedakan fakta, estimasi, dan hipotesis.
+- Rekomendasi tidak dibuat jika data pendukung tidak memadai.
 
-**Acceptance criteria**
-- A shot can have multiple assets or alternatives.
-- An asset record can include filename or URI, asset type, source, prompt version, and status.
-- The system distinguishes the current selected asset from alternatives.
-- Existing assets are not deleted simply because a new direction is created.
-- Actual file storage may be simplified for the hackathon, provided asset references remain reliable.
+### 5.11. Insight Detail and Data Provenance
 
-### FR-06 — Creative Direction Versioning
+**Priority: P0**
 
-**Priority:** P0
+Pengguna harus dapat memahami dari mana sebuah angka atau insight berasal.
 
-The system shall preserve successive versions of the creative direction.
+#### Requirements
 
-**Acceptance criteria**
-- A new direction creates a new version rather than silently overwriting the old one.
-- The system records version identifier, content, timestamp, and change note.
-- The user can inspect the active and previous versions.
-- Shots can reference the direction version used when they were created or last reviewed.
+Setiap insight atau perhitungan penting harus dapat menampilkan:
 
-### FR-07 — Direction Comparison
+- Sumber data.
+- Periode yang digunakan.
+- Formula atau aturan yang diterapkan.
+- Asumsi.
+- Data yang tidak tersedia.
+- Waktu terakhir perhitungan.
+- Versi aturan analisis jika relevan.
 
-**Priority:** P0
+Fitur ini menjadi fondasi kepercayaan terhadap produk.
 
-The system shall compare an updated direction with the currently active direction.
+### 5.12. Natural Language AI Assistant
 
-**Examples of changes**
-- Realistic cinematic style to stylized animation.
-- Cool lighting to warm lighting.
-- Character design update.
-- New location, framing, mood, or sequence requirement.
-- A new restriction or acceptance criterion.
+**Priority: P1**
 
-**Acceptance criteria**
-- The system displays the main differences in understandable language.
-- Changed, added, and removed requirements are distinguished where possible.
-- The comparison does not automatically approve the new direction.
-- The user can inspect the new direction before applying its consequences.
+AI assistant dapat membantu pengguna memahami data dengan bahasa sehari-hari.
 
-### FR-08 — Change Impact Analysis
+Contoh:
 
-**Priority:** P0
+- "Produk mana yang marginnya paling rendah bulan ini?"
+- "Pelanggan mana yang belum membeli kembali seperti biasanya?"
+- "Mengapa laba kotor saya turun dibanding bulan lalu?"
+- "Apa yang perlu saya periksa terlebih dahulu?"
 
-The system shall identify shots and assets that may be affected by a direction change.
+#### Requirements
 
-**Recommendation categories**
-- **Retain:** existing work appears to remain compatible.
-- **Adapt:** existing work may be reusable after modification.
-- **Regenerate:** regeneration may be necessary.
-- **Needs review:** evidence is insufficient to recommend a confident action.
+- AI menggunakan data bisnis yang telah diotorisasi.
+- Perhitungan angka menggunakan sumber data dan formula yang dapat diverifikasi.
+- Jawaban harus menyertakan periode dan sumber data.
+- AI menyatakan jika informasi tidak tersedia.
+- AI tidak mengarang transaksi atau metrik.
+- AI tidak boleh mengakses data bisnis pengguna lain.
+- Pertanyaan yang memerlukan data tidak lengkap harus menghasilkan penjelasan keterbatasan.
 
-**Acceptance criteria**
-- Each recommendation includes a reason.
-- Recommendations reference changed requirements or known dependencies where feasible.
-- The system can represent uncertainty.
-- The user can override every recommendation.
-- The system does not claim a shot is definitely valid based only on a superficial text match.
-- Where dependency data is absent, the system marks the impact as uncertain rather than assuming no impact.
+AI assistant tidak boleh menjadi prasyarat agar fitur inti MVP dapat digunakan.
 
-### FR-09 — Human Review and Approval
+---
 
-**Priority:** P0
+## 6. Core User Flows
 
-The system shall require human review for consequential creative workflow decisions.
+### 6.1. First-Time Setup
 
-**Acceptance criteria**
-- Users can accept, reject, or override a recommended action.
-- The selected action and review status are recorded.
-- The system distinguishes AI recommendation from human-approved status.
-- Unreviewed changes remain visibly unreviewed.
+1. Pengguna membuat akun.
+2. Pengguna mengisi profil bisnis.
+3. Pengguna menambahkan produk atau mengimpor data.
+4. Pengguna memvalidasi HPP dan harga.
+5. Pengguna memasukkan atau mengimpor transaksi.
+6. Sistem menghitung metrik dasar.
+7. Pengguna melihat dashboard dan kelengkapan data.
+8. Sistem menampilkan insight pertama jika data telah memadai.
 
-### FR-10 — Version History and Traceability
+### 6.2. Product Profitability Analysis
 
-**Priority:** P0
+1. Pengguna membuka daftar produk.
+2. Pengguna memilih produk.
+3. Sistem menampilkan harga jual dan komponen HPP.
+4. Sistem menghitung laba kotor dan margin.
+5. Sistem menampilkan histori performa penjualan.
+6. Pengguna meninjau data dan menentukan tindakan.
 
-The system shall preserve the history of relevant shot and prompt changes.
+### 6.3. Customer Follow-Up
 
-**Acceptance criteria**
-- Users can inspect earlier shot/prompt versions.
-- The current version is clearly identified.
-- The system records what changed and which direction version motivated the change, when known.
-- A prior version can be selected as the working basis for a new revision without erasing history.
-- The system does not falsely imply that all underlying files are recoverable if only metadata or links were stored.
+1. Sistem mengidentifikasi perubahan pola pembelian.
+2. Sistem menghasilkan insight beserta bukti.
+3. Pemilik usaha membuka detail insight.
+4. Pemilik usaha memeriksa histori transaksi.
+5. Pemilik usaha memutuskan apakah tindak lanjut diperlukan.
+6. Status tindakan diperbarui secara manual.
 
-### FR-11 — Updated Storyboard
+### 6.4. CSV Import
 
-**Priority:** P0
+1. Pengguna mengunduh template.
+2. Pengguna mengisi data.
+3. Pengguna mengunggah file.
+4. Sistem memvalidasi data.
+5. Pengguna memperbaiki error atau melanjutkan dengan baris valid.
+6. Pengguna mengonfirmasi impor.
+7. Sistem menyimpan data dan menghasilkan ringkasan.
+8. Dashboard diperbarui berdasarkan data yang berhasil diproses.
 
-The system shall display the latest approved shot state in sequence.
+---
 
-**Acceptance criteria**
-- The storyboard uses the latest selected version for each shot.
-- Users can identify shots awaiting review or adaptation.
-- The user can reorder shots.
-- Previous versions remain accessible.
-- The storyboard does not mark the entire project as complete while required approvals or checks remain outstanding.
+## 7. Information Architecture
 
-### FR-12 — Project Knowledge and Decision Log
+### Primary Navigation
 
-**Priority:** P1
+1. Dashboard.
+2. Transactions.
+3. Products.
+4. Customers.
+5. Insights.
+6. Reports.
+7. Settings.
 
-The system should store reusable project knowledge and decisions.
+### Dashboard Sections
 
-**Examples**
-- Why a visual direction was selected.
-- Which prompts or references worked.
-- Known limitations of a model or workflow.
-- Why a shot was adapted or regenerated.
-- Approval notes and relevant feedback.
+**Business Overview**
 
-**Acceptance criteria**
-- Decisions can be associated with a project or shot.
-- Users can search or browse decision records.
-- Where feasible, AI responses can retrieve relevant project knowledge with source context.
+- Net sales.
+- Gross profit.
+- Gross margin.
+- Transaction count.
 
-### FR-13 — Quality Review Checklist
+**Product Performance**
 
-**Priority:** P1
+- Top products by sales.
+- Products with low gross margin.
+- Product-level performance.
 
-The system should support a human-reviewed checklist for shot and storyboard readiness.
+**Customer Activity**
 
-**Possible checks**
-- Compliance with current direction.
-- Character and visual continuity.
-- Correct order and coverage of required shots.
-- Missing assets or unresolved dependencies.
-- Pending approval.
-- Deliverable completeness.
+- Recent purchases.
+- Customers whose purchasing patterns have changed.
+- Outstanding follow-up items.
 
-**Acceptance criteria**
-- Checks have explicit statuses such as pass, fail, or needs review.
-- AI-generated assessments are identified as suggestions.
-- Final approval remains with a human.
+**Recommended Actions**
 
-### FR-14 — Deadline and Rework Overview
+- Priority.
+- Supporting evidence.
+- Action status.
 
-**Priority:** P2
+**Data Health**
 
-The system could summarize the number of affected shots and outstanding actions after a change.
+- Missing product costs.
+- Unlinked customer transactions.
+- Import errors.
+- Incomplete transaction records.
 
-**Acceptance criteria, if implemented**
-- Show counts of retain, adapt, regenerate, and needs-review items.
-- Show manually entered deadlines or estimates.
-- Clearly label estimated effort as an estimate, not a measured fact.
-- Do not claim cost or time savings without supporting measurements.
+Dashboard harus memprioritaskan informasi yang membantu keputusan, bukan sekadar menampilkan sebanyak mungkin grafik.
+
+---
 
 ## 8. Non-Functional Requirements
 
-### NFR-01 — Usability
+### 8.1. Security
+
+- Seluruh endpoint privat memerlukan autentikasi.
+- Setiap operasi harus memvalidasi otorisasi berdasarkan Business ID.
+- Sistem harus mencegah akses lintas bisnis.
+- Data sensitif harus dikirim melalui HTTPS.
+- Password tidak boleh disimpan dalam bentuk plaintext.
+- Secret dan API key tidak boleh ditanamkan dalam frontend.
+- Perubahan penting harus memiliki audit trail.
+- File impor harus divalidasi dan diproses secara aman.
+- Backup dan prosedur pemulihan harus disiapkan sebelum penggunaan produksi.
 
-- The main workflow should be understandable without AI or VFX engineering expertise.
-- Key shot statuses and active versions should be visible.
-- Recommendations should include plain-language explanations.
+### 8.2. Privacy
 
-### NFR-02 — Reliability and Data Integrity
+- Data pelanggan hanya dikumpulkan jika dibutuhkan.
+- Informasi pribadi yang tidak diperlukan tidak boleh diwajibkan.
+- Data bisnis tidak boleh digunakan untuk melatih model eksternal tanpa dasar yang sah dan pengungkapan yang sesuai.
+- Pengguna harus mendapatkan penjelasan mengenai data yang disimpan.
+- Retensi dan penghapusan data harus mengikuti kebijakan produk serta ketentuan hukum yang berlaku.
 
-- A new version must not silently overwrite an existing version.
-- Invalid or incomplete AI output must be validated before being saved as structured data.
-- The system should provide understandable error messages for failed imports or AI calls.
+### 8.3. Performance
 
-### NFR-03 — Traceability
+Target awal yang perlu divalidasi melalui pengujian:
 
-- Important extracted requirements should retain source context where feasible.
-- Change recommendations should show their rationale.
-- The user should be able to distinguish source facts, AI interpretations, and human decisions.
-
-### NFR-04 — Performance
-
-For the hackathon prototype, the interface should remain usable for a small project containing one brief and approximately 4–10 shots. AI processing time will depend on the selected model and provider. Avoid claiming a fixed response-time guarantee until measured.
-
-### NFR-05 — Privacy and Security
-
-- Use public sample assets or synthetic content in the demo.
-- Do not upload confidential client footage.
-- Keep API keys on the server side and out of client-visible code.
-- Validate uploaded file types and sizes.
-- Apply basic access separation if the prototype supports multiple users.
-- Do not expose project data through predictable, unprotected endpoints.
-
-### NFR-06 — Maintainability
-
-- Separate project management, AI analysis, versioning, and asset metadata into distinct modules.
-- Use structured schemas for LLM outputs.
-- Keep the model provider replaceable where practical.
-- Store identifiers and dependencies explicitly rather than relying only on free-text descriptions.
-
-### NFR-07 — Accessibility and Collaboration
-
-- Use readable labels and clear status indicators.
-- Avoid using color alone to communicate status.
-- Make the active direction and current shot versions explicit for distributed collaborators.
-
-## 9. UX and Information Architecture
-
-### 9.1 Main navigation
-
-1. **Projects:** project list and creation.
-2. **Project Overview:** summary, active direction, outstanding actions, and recent changes.
-3. **Brief & Knowledge:** source documents, extracted requirements, constraints, and decisions.
-4. **Shot Board:** ordered shots, thumbnails, prompts, dependencies, and status.
-5. **Direction Changes:** compare versions and review impact analysis.
-6. **Version History:** inspect prior versions of directions, prompts, and shot assets.
-7. **Quality & Delivery:** checklist and outstanding approvals.
-
-### 9.2 Key screen: Shot Board
-
-Each shot card should display:
-- Shot ID and title.
-- Current thumbnail, if available.
-- Current status.
-- Relevant requirements.
-- Active prompt/asset version.
-- Direction version.
-- Outstanding review indicator.
-
-### 9.3 Key screen: Direction Change Review
-
-The review screen should display:
-- Previous direction.
-- Proposed new direction.
-- Summary of differences.
-- A list of affected shots.
-- Recommended action and explanation per shot.
-- Evidence/dependency context, where available.
-- Controls to accept, reject, or override recommendations.
-- A clear confirmation step before the new direction becomes active.
-
-### 9.4 Key screen: Version Comparison
-
-The comparison screen should make it possible to inspect:
-- Previous and current prompt.
-- Previous and current asset, if available.
-- Direction version associated with each.
-- Change note and approval status.
-
-## 10. Suggested Technical Architecture
-
-The architecture below is a practical starting point, not a fixed requirement.
-
-| Layer | Suggested technology | Responsibility |
-|---|---|---|
-| Frontend | Streamlit for fastest MVP; React if richer interaction is needed | Project dashboard, brief editor, shot board, direction review |
-| Backend API | FastAPI | Project logic, import processing, change workflows, approvals |
-| Database | PostgreSQL or Supabase | Projects, requirements, directions, shots, versions, decisions, dependencies |
-| LLM service | Hosted API or suitable open-source model | Brief extraction, direction comparison, explanation and recommendations |
-| Retrieval | Full-text search; embeddings if useful | Retrieve relevant passages and prior decisions |
-| Asset storage | Local storage for demo or object storage | Images, thumbnails, and generated/reference assets |
-| Optional vision service | Image similarity or vision-capable model | Support visual review where relevant |
-
-### Architecture rules
-
-- The LLM should not be the sole source of truth for project state.
-- Persist important requirements, versions, and dependencies in structured data.
-- Validate LLM output against a schema before updating project records.
-- Use explicit relationships to trace changes from a requirement to affected shots.
-- Treat semantic similarity as supporting evidence, not definitive proof that an asset is compliant.
-- Keep creative approval in the application workflow.
-
-## 11. Suggested Data Model
-
-### Project
-- `id`
-- `name`
-- `description`
-- `status`
-- `created_at`
-- `updated_at`
-
-### SourceDocument
-- `id`
-- `project_id`
-- `name`
-- `file_type`
-- `source_uri` or stored content reference
-- `version`
-- `created_at`
-
-### Requirement
-- `id`
-- `project_id`
-- `source_document_id`
-- `category`
-- `description`
-- `priority`
-- `confidence` or review state
-- `source_excerpt`, where feasible
-- `status`
-
-### DirectionVersion
-- `id`
-- `project_id`
-- `version_number`
-- `content`
-- `change_note`
-- `created_at`
-- `created_by`, if user identity exists
-- `approval_status`
-
-### Shot
-- `id`
-- `project_id`
-- `title`
-- `description`
-- `sequence_order`
-- `status`
-- `current_version_id`
-
-### ShotVersion
-- `id`
-- `shot_id`
-- `version_number`
-- `direction_version_id`
-- `prompt`
-- `description`
-- `change_note`
-- `review_status`
-- `created_at`
-
-### Asset
-- `id`
-- `project_id`
-- `shot_id`
-- `shot_version_id`
-- `asset_type`
-- `file_uri`
-- `source`
-- `selection_status`
-- `created_at`
-
-### Dependency
-- `id`
-- `project_id`
-- `source_type`
-- `source_id`
-- `target_type`
-- `target_id`
-- `relationship_type`
-- `evidence_note`
-
-### DecisionLog
-- `id`
-- `project_id`
-- `shot_id`, nullable
-- `decision`
-- `reason`
-- `actor_type` (human or AI)
-- `direction_version_id`
-- `created_at`
-
-This schema can be simplified for the hackathon, but the prototype should preserve stable IDs and version history.
-
-## 12. Core Workflow Logic
-
-### 12.1 Brief analysis
-
-1. Read or parse the input content.
-2. Ask the LLM to return structured fields.
-3. Validate the output schema.
-4. Retain source context for important extracted items where feasible.
-5. Present results for human correction.
-6. Save the reviewed brief and requirements.
-
-### 12.2 Direction change analysis
-
-1. Save the proposed direction as a draft version.
-2. Compare it with the active direction.
-3. Identify added, removed, or modified requirements.
-4. Query structured dependencies to find related shots and assets.
-5. Use AI to assess semantic implications and generate explanations.
-6. Combine dependency evidence and AI assessment into recommendations.
-7. Mark low-confidence or weakly supported results as `needs_review`.
-8. Ask an authorized user to approve the new direction and shot actions.
-9. Save the approved direction and resulting decisions as new versions.
-10. Update the storyboard based on approved shot versions.
-
-### 12.3 Shot action rules
-
-- **Retain:** evidence suggests the shot remains compatible; still allow review.
-- **Adapt:** a portion of the shot can likely be preserved, but one or more requirements need updating.
-- **Regenerate:** the current asset appears incompatible or cannot be adapted adequately.
-- **Needs review:** evidence is missing, conflicting, or too uncertain.
-
-The system should not infer that a shot is unaffected simply because no dependency record exists. Missing dependency data should lower confidence.
-
-## 13. MVP Scope and Delivery Plan
-
-### Must-have MVP
-
-- Project creation.
-- Brief input and AI extraction.
-- Human editing of extracted requirements.
-- Shot list/storyboard.
-- Prompt and asset metadata per shot.
-- Direction versioning.
-- Direction comparison.
-- Change impact recommendations with reasons.
-- Human approval or override.
-- Version history.
-- Updated storyboard view.
-- Public or synthetic demo assets.
-
-### Optional enhancements
-
-- Direct image/video generation integration.
-- Visual similarity checks.
-- Semantic search over project knowledge.
-- Deadline and rework dashboard.
-- Multi-user authentication and collaboration.
-- Export to PDF/CSV or production tool integrations.
-
-### Suggested implementation sequence
-
-**Milestone 1 — Structured project data**
-- Define data schema and seed a sample project with 4–6 shots.
-- Implement project and shot CRUD operations.
-
-**Milestone 2 — Brief understanding**
-- Add brief ingestion and structured extraction.
-- Build a review/edit interface for requirements.
-
-**Milestone 3 — Versioned production plan**
-- Add direction versions, shot versions, prompts, and asset metadata.
-- Build the shot board and version history.
-
-**Milestone 4 — Change analysis**
-- Add direction comparison.
-- Connect requirements to shots using explicit dependencies.
-- Generate and display action recommendations.
-
-**Milestone 5 — End-to-end demo**
-- Add approval controls and update storyboard state.
-- Test the complete change scenario.
-- Record evaluation results and known limitations.
-
-## 14. Success Metrics and Evaluation
-
-The hackathon should evaluate workflow improvements rather than simply count AI calls.
-
-| Metric | Definition | Evaluation method |
-|---|---|---|
-| Time to understand brief | Time required to identify key requirements and constraints | Compare manual and app-assisted review |
-| Change impact identification | Share of truly affected shots correctly identified | Compare system results with a manually defined reference set |
-| Recommendation quality | Share of suggested actions judged appropriate by reviewers | Review a fixed set of change scenarios |
-| Asset reuse rate | Share of previous assets retained or adapted in the updated plan | Track asset status before and after changes |
-| Traceability | Ability to find the requirement/direction that motivated a shot change | Run task-based user checks |
-| Direction compliance | Degree to which revised shots satisfy the updated criteria | Human checklist or structured review |
-| Workflow completion time | Time from direction change to approved updated plan | Compare manual and assisted workflows |
-
-Do not state a percentage reduction in time, cost, or rework until it has been measured. Report the test setup, sample size, and limitations.
-
-## 15. Risks and Mitigations
-
-| Risk | Potential impact | Mitigation |
-|---|---|---|
-| LLM misinterprets a brief | Incorrect requirements or shot actions | Source-aware extraction, editable fields, schema validation, human review |
-| Impact analysis misses a dependency | Affected shot remains outdated | Explicit dependency records, `needs_review` status, test cases |
-| AI overstates visual quality | False confidence in output compliance | Treat visual assessments as advisory; human review |
-| Version history overwrites data | Loss of previous work | Create new versions and preserve history |
-| API latency or cost | Slow or unreliable demo | Limit context, cache safe results, use small models for simpler tasks |
-| Scope expands too far | Core scenario remains unfinished | Prioritize the end-to-end change workflow |
-| Confidential content is uploaded | Privacy or contractual risk | Use public/synthetic assets and communicate upload restrictions |
-| Distributed team misunderstands state | Conflicting production actions | Clear active-version labels and approval status |
-
-## 16. Demo Scenario and Acceptance Test
-
-### Scenario
-
-A six-shot project begins with a realistic cinematic style and cool blue lighting. After several assets have been created, the director changes the direction to stylized animation with warmer lighting while requiring the main character's identity to remain consistent.
-
-### Test sequence
-
-1. Create the sample project and import its brief.
-2. Extract and review requirements.
-3. Generate or enter six shots.
-4. Attach public sample assets and prompt versions to selected shots.
-5. Save the original direction as Version 1.
-6. Enter the new direction as a proposed Version 2.
-7. Display a comparison of the two directions.
-8. Identify shots linked to the changed style, lighting, and character requirements.
-9. Show recommendations with explanations and uncertainty where appropriate.
-10. Have a user approve or override recommendations.
-11. Create revised shot versions without deleting earlier versions.
-12. Display the updated storyboard and outstanding review items.
-
-### MVP acceptance criteria
-
-The MVP is acceptable for demonstration when:
-- A project can be created and populated with a brief and shots.
-- The brief analysis is editable and does not require confidential data.
-- A new direction can be compared with the previous direction.
-- The system produces a shot-level impact list with explanations.
-- The user can override recommendations.
-- The application preserves earlier versions.
-- The storyboard reflects the selected current versions.
-- The demo clearly distinguishes AI suggestions from human approvals.
-- Known limitations are documented rather than hidden.
-
-## 17. Open Questions
-
-These decisions can be finalized with the hackathon team:
-- Will the first prototype accept PDF/DOCX uploads, or only pasted text?
-- Which LLM provider or local model is available within the budget?
-- Will assets be uploaded to local storage or stored as external URLs?
-- Is direct image generation needed, or will prepared public assets be sufficient?
-- Will the demo use a single-user workflow or basic multi-user access?
-- What language should the interface support: Indonesian, English, or both?
-- Which specific evaluation scenario and ground-truth affected-shot list will be used?
-
-## 18. Final Product Positioning
-
-**AI Production Workflow Assistant is a change-resilient production planning and knowledge system for AI-assisted creative teams.**
-
-It helps a team turn a large brief into a structured plan, understand what changes when direction shifts, retain useful prior work, trace decisions, and update the storyboard with human oversight.
-
-The MVP's central demonstration is not that AI can generate another image. It is that the workflow can survive a change in direction without losing context, silently discarding useful assets, or leaving the team unsure about what to do next.
+- Dashboard standar: p95 di bawah 2 detik untuk dataset MVP yang disepakati.
+- Endpoint CRUD standar: p95 di bawah 500 ms pada kondisi pengujian yang ditentukan.
+- Proses impor: asynchronous jika ukuran file melewati ambang batas yang ditentukan.
+- Pengguna mendapatkan feedback ketika proses membutuhkan waktu lebih lama.
+
+Angka ini merupakan target rekayasa awal, bukan klaim performa yang sudah terukur.
+
+### 8.4. Reliability
+
+- Proses impor tidak boleh menggandakan data secara tidak sengaja ketika diulang.
+- Kegagalan satu proses tidak boleh merusak transaksi yang telah tersimpan.
+- Perhitungan harus konsisten dengan sumber data.
+- Operasi yang mengubah data harus menangani kegagalan dan retry secara aman.
+- Error harus dicatat tanpa membocorkan informasi sensitif.
+
+### 8.5. Usability and Accessibility
+
+- Bahasa antarmuka menggunakan Bahasa Indonesia.
+- Angka uang menggunakan format Rupiah.
+- Formulir menampilkan validasi yang jelas.
+- Tabel harus tetap mudah digunakan pada layar kecil.
+- Status data kosong dan data tidak lengkap harus dijelaskan.
+- Informasi penting tidak boleh hanya dibedakan menggunakan warna.
+
+---
+
+## 9. Data Model Overview
+
+Model data awal menggunakan relational database.
+
+### Core Tables
+
+**businesses**
+
+- id
+- name
+- business_type
+- timezone
+- created_at
+- updated_at
+
+**users**
+
+- id
+- email
+- password_hash_or_auth_provider
+- created_at
+- updated_at
+
+**business_memberships**
+
+- id
+- business_id
+- user_id
+- role
+- created_at
+
+**products**
+
+- id
+- business_id
+- name
+- sku
+- unit
+- current_selling_price
+- status
+- created_at
+- updated_at
+
+**product_cost_components**
+
+- id
+- product_id
+- component_name
+- cost_per_unit
+- effective_from
+- created_at
+
+**customers**
+
+- id
+- business_id
+- display_name
+- created_at
+- updated_at
+
+**customer_identifiers**
+
+- id
+- customer_id
+- identifier_type
+- identifier_value
+- source
+- verified_at
+
+**transactions**
+
+- id
+- business_id
+- customer_id
+- transaction_date
+- status
+- source
+- created_at
+- updated_at
+
+**transaction_items**
+
+- id
+- transaction_id
+- product_id
+- quantity
+- unit_selling_price
+- discount_amount
+- recorded_unit_cost
+- created_at
+
+**interactions**
+
+- id
+- business_id
+- customer_id
+- interaction_type
+- occurred_at
+- notes
+- source
+
+**complaints**
+
+- id
+- business_id
+- customer_id
+- transaction_id
+- description
+- status
+- created_at
+- resolved_at
+
+**insights**
+
+- id
+- business_id
+- insight_type
+- title
+- explanation
+- evidence_snapshot
+- period_start
+- period_end
+- confidence_or_data_quality
+- created_at
+
+**recommended_actions**
+
+- id
+- business_id
+- insight_id
+- title
+- description
+- status
+- created_at
+- updated_at
+
+**audit_logs**
+
+- id
+- business_id
+- actor_user_id
+- entity_type
+- entity_id
+- action
+- before_snapshot
+- after_snapshot
+- created_at
+
+### Data Model Rules
+
+- Seluruh data bisnis harus memiliki batas kepemilikan yang jelas.
+- Transaksi menyimpan snapshot biaya yang digunakan dalam perhitungan.
+- Perubahan harga dan biaya tidak boleh mengubah laporan historis tanpa aturan penyesuaian yang eksplisit.
+- Identitas pelanggan harus dipisahkan dari asumsi pencocokan identitas.
+- Bukti insight harus cukup untuk merekonstruksi dasar analisis.
+- Data yang tidak diketahui harus dibedakan dari nilai nol.
+
+---
+
+## 10. System Architecture
+
+### 10.1. Architecture Overview
+
+MVP menggunakan arsitektur web client dan backend API dengan satu sumber data utama.
+
+Komponen:
+
+1. Web frontend.
+2. Backend application API.
+3. Relational database.
+4. File import and processing module.
+5. Deterministic financial calculation engine.
+6. Rule-based insight engine.
+7. Optional AI integration layer.
+8. Logging and audit trail.
+
+### 10.2. Architectural Principles
+
+- Financial calculations tidak bergantung pada output LLM.
+- Business rules berada di backend.
+- Frontend tidak menjadi sumber kebenaran untuk perhitungan.
+- Semua akses data mengikuti otorisasi bisnis.
+- Proses impor menggunakan validasi dan transaksi database yang sesuai.
+- Insight menyimpan referensi data dan versi aturan.
+- AI diintegrasikan melalui lapisan terpisah agar provider dapat diganti.
+- Modul bisnis dipisahkan berdasarkan tanggung jawab, bukan hanya berdasarkan jenis file.
+
+### 10.3. AI Strategy
+
+MVP menggunakan kombinasi:
+
+**Deterministic calculations**
+
+Untuk HPP, penjualan, laba kotor, dan margin.
+
+**Rule-based analysis**
+
+Untuk mendeteksi perubahan pola transaksi, data tidak lengkap, dan kondisi bisnis yang dapat dijelaskan.
+
+**LLM-assisted explanation**
+
+Untuk menerjemahkan hasil analisis menjadi bahasa yang lebih mudah dipahami dan membantu pengguna menanyakan data bisnis.
+
+LLM tidak boleh menciptakan fakta yang tidak ada di sumber data. Rekomendasi yang berdampak pada transaksi atau komunikasi eksternal memerlukan kontrol pengguna.
+
+### 10.4. Future WhatsApp Integration
+
+WhatsApp merupakan kandidat kanal interaksi untuk fase berikutnya.
+
+Arsitektur yang direncanakan:
+
+- Satu backend bisnis sebagai sumber kebenaran.
+- Web dashboard untuk konfigurasi, laporan, dan analisis.
+- WhatsApp Business Platform sebagai kanal input dan query.
+- Webhook untuk menerima pesan.
+- Parser untuk mengubah pesan menjadi data terstruktur.
+- Validasi dan konfirmasi sebelum penyimpanan.
+- Idempotency untuk mencegah pesan yang sama diproses berulang.
+
+Contoh interaksi masa depan:
+
+Pemilik: "Hari ini terjual 12 kotak brownies, harga 25 ribu per kotak."
+
+Sistem:
+
+- Mengidentifikasi produk dan kuantitas.
+- Memeriksa apakah harga dan identitas produk jelas.
+- Menampilkan ringkasan transaksi.
+- Meminta konfirmasi jika terdapat ambiguitas.
+- Menyimpan transaksi setelah konfirmasi.
+
+Integrasi ini tidak termasuk MVP dan harus menggunakan mekanisme akses resmi yang sesuai.
+
+---
+
+## 11. Analytics and Success Metrics
+
+### 11.1. North Star Metric
+
+**Weekly Active Businesses Receiving Verified Business Insights**
+
+Jumlah bisnis aktif mingguan yang menerima setidaknya satu insight yang dapat ditelusuri ke data sumber yang valid.
+
+Metrik ini menggabungkan penggunaan berulang dan manfaat inti produk. Namun, metrik ini harus dibaca bersama metrik tindakan pengguna agar sistem tidak sekadar menghasilkan banyak insight yang tidak berguna.
+
+### 11.2. Activation Metrics
+
+- Persentase pengguna yang menyelesaikan profil bisnis.
+- Persentase bisnis yang berhasil mengimpor atau memasukkan transaksi.
+- Persentase bisnis yang memiliki biaya produk memadai.
+- Persentase bisnis yang mencapai dashboard dengan metrik valid.
+- Waktu dari pendaftaran hingga insight pertama yang valid.
+
+### 11.3. Engagement Metrics
+
+- Weekly active businesses.
+- Jumlah insight yang dibuka.
+- Persentase insight yang ditinjau.
+- Persentase rekomendasi yang ditindaklanjuti.
+- Frekuensi penggunaan laporan.
+- Retensi bisnis pada minggu ke-4 dan bulan ke-3.
+
+### 11.4. Quality Metrics
+
+- Akurasi perhitungan keuangan terhadap test cases.
+- Tingkat kesalahan impor.
+- Tingkat duplikasi transaksi.
+- Persentase insight dengan bukti lengkap.
+- Persentase insight yang dinilai berguna oleh pengguna.
+- Jumlah rekomendasi yang tidak didukung data.
+- Tingkat kesalahan pencocokan pelanggan.
+
+### 11.5. Business Metrics
+
+- Conversion to paid.
+- Monthly Recurring Revenue (MRR).
+- Customer Acquisition Cost (CAC).
+- Customer Lifetime Value (LTV).
+- Monthly customer churn.
+- Gross margin.
+- AI cost per active business, apabila AI digunakan.
+
+Target numerik harus ditetapkan setelah pengujian awal dan pengumpulan baseline. Target tidak boleh dipilih hanya karena terlihat menarik.
+
+---
+
+## 12. MVP Validation Plan
+
+### Phase 1: Problem Validation
+
+Durasi indikatif: 1–2 minggu.
+
+Aktivitas:
+
+- Wawancara 20–30 pemilik usaha.
+- Mengamati metode pencatatan yang digunakan.
+- Memeriksa contoh data transaksi yang telah dianonimkan.
+- Mengidentifikasi masalah biaya, laba, dan pelanggan.
+- Menguji kesediaan pengguna untuk membayar.
+
+Output:
+
+- Segmen pelanggan awal.
+- Daftar masalah yang paling sering terjadi.
+- Peta alur kerja saat ini.
+- Hipotesis manfaat produk.
+- Daftar kebutuhan data.
+
+### Phase 2: Prototype Validation
+
+Durasi indikatif: 1–2 minggu.
+
+Aktivitas:
+
+- Membuat prototipe dashboard.
+- Menguji input produk dan biaya.
+- Menguji impor data.
+- Menampilkan insight pelanggan.
+- Menguji pemahaman pengguna terhadap penjelasan insight.
+
+Output:
+
+- Feedback usability.
+- Daftar masalah prioritas.
+- Revisi alur produk.
+- Validasi awal terhadap manfaat.
+
+### Phase 3: MVP Development
+
+Durasi indikatif: 4–8 minggu, tergantung tim dan cakupan teknis.
+
+Aktivitas:
+
+- Membangun authentication dan business isolation.
+- Membangun product management.
+- Membangun transaction management.
+- Membangun CSV import.
+- Membangun financial calculation engine.
+- Membangun dashboard.
+- Membangun customer insight engine.
+- Menambahkan audit trail dan pengujian.
+
+### Phase 4: Pilot
+
+Durasi indikatif: 2–4 minggu.
+
+Aktivitas:
+
+- Menguji produk bersama sejumlah kecil UMKM.
+- Mengukur kelengkapan data.
+- Memvalidasi perhitungan.
+- Menguji apakah insight dapat dipahami.
+- Mengukur penggunaan berulang.
+- Menguji kesediaan membayar.
+
+### Exit Criteria
+
+MVP layak dikembangkan lebih lanjut jika:
+
+- Perhitungan inti lulus seluruh test cases yang ditetapkan.
+- Isolasi data antarbisnis telah diuji.
+- Impor data memiliki penanganan error yang dapat dipahami.
+- Insight dapat ditelusuri ke sumber data.
+- Pengguna dapat menyelesaikan alur inti tanpa bantuan intensif.
+- Ada bukti bahwa pengguna memperoleh manfaat yang cukup untuk kembali menggunakan produk.
+- Terdapat indikasi kesediaan membayar yang dapat diuji lebih lanjut.
+
+---
+
+## 13. Risks and Mitigations
+
+### 13.1. Poor Data Quality
+
+**Risk:** Data historis tidak lengkap atau formatnya tidak konsisten.
+
+**Mitigation:**
+
+- Menyediakan template.
+- Memvalidasi kolom dan nilai.
+- Menampilkan tingkat kelengkapan.
+- Menghindari kesimpulan yang membutuhkan data yang tidak tersedia.
+
+### 13.2. Incorrect Financial Interpretation
+
+**Risk:** Pengguna menganggap omzet sebagai laba atau menganggap laba kotor sebagai laba bersih.
+
+**Mitigation:**
+
+- Memisahkan metrik keuangan.
+- Menampilkan formula.
+- Menjelaskan biaya yang belum dimasukkan.
+- Menggunakan label "estimasi" jika diperlukan.
+
+### 13.3. False Customer Risk Signals
+
+**Risk:** Pelanggan diberi label berisiko meskipun pola pembeliannya memang tidak teratur.
+
+**Mitigation:**
+
+- Menggunakan histori individual jika memadai.
+- Menampilkan dasar analisis.
+- Menghindari label pasti.
+- Menguji aturan pada data nyata yang telah dianonimkan.
+
+### 13.4. Low Willingness to Pay
+
+**Risk:** Pengguna menyukai produk tetapi tidak merasa manfaatnya cukup besar untuk membayar.
+
+**Mitigation:**
+
+- Menguji willingness to pay sebelum memperluas fitur.
+- Mengukur waktu yang dihemat dan keputusan yang terbantu.
+- Menawarkan pilot berbayar jika memungkinkan.
+- Memprioritaskan satu segmen bisnis.
+
+### 13.5. Excessive AI Costs
+
+**Risk:** Biaya penggunaan model lebih tinggi daripada nilai langganan.
+
+**Mitigation:**
+
+- Menggunakan formula dan rules untuk tugas deterministik.
+- Memanggil LLM hanya jika diperlukan.
+- Membatasi konteks yang dikirim.
+- Memantau biaya per bisnis.
+- Menyediakan batas penggunaan yang transparan.
+
+### 13.6. Privacy and Security
+
+**Risk:** Data keuangan dan informasi pelanggan bocor atau diakses oleh pihak yang tidak berwenang.
+
+**Mitigation:**
+
+- Business-level authorization.
+- Least-privilege access.
+- Audit trail.
+- Enkripsi saat transmisi.
+- Pengujian isolasi data.
+- Kebijakan retensi dan penghapusan data.
+
+---
+
+## 14. Product Roadmap
+
+### Stage 1: Business Intelligence Foundation
+
+Fokus:
+
+- Data produk dan transaksi.
+- HPP dan kalkulasi harga.
+- Dashboard keuangan.
+- Riwayat transaksi pelanggan.
+- Insight berbasis aturan.
+- CSV import.
+
+### Stage 2: AI Business Assistant
+
+Fokus:
+
+- Pertanyaan dalam bahasa alami.
+- Penjelasan performa bisnis.
+- Rekomendasi tindakan yang lebih kontekstual.
+- Ringkasan bisnis berkala.
+- Perbaikan kualitas insight.
+
+### Stage 3: Conversational Business Input
+
+Fokus:
+
+- Integrasi WhatsApp Business Platform.
+- Input transaksi melalui percakapan.
+- Validasi dan konfirmasi.
+- Ringkasan dan query bisnis melalui WhatsApp.
+
+### Stage 4: Operational Automation
+
+Fokus:
+
+- Integrasi dengan kanal penjualan yang didukung.
+- Tindak lanjut pelanggan.
+- Pengelolaan tugas operasional.
+- Notifikasi dan reminder.
+- Approval workflow.
+
+### Stage 5: AI Business Operator
+
+Fokus:
+
+- Mengusulkan rencana tindakan berdasarkan tujuan bisnis.
+- Menyusun prioritas pekerjaan.
+- Menjalankan tindakan yang diizinkan.
+- Memantau hasil dan memberi laporan.
+- Memperluas otomasi dengan audit trail dan kontrol pengguna.
+
+Setiap tahap harus bergantung pada bukti kebutuhan pengguna, kelayakan integrasi, keamanan, dan hasil tahap sebelumnya.
+
+---
+
+## 15. Definition of Done
+
+Sebuah fitur dianggap selesai jika:
+
+- Acceptance criteria terpenuhi.
+- Validasi input dan error handling tersedia.
+- Otorisasi dan isolasi data telah diuji.
+- Unit test dan integration test yang relevan lulus.
+- Perubahan database memiliki migration yang jelas.
+- Perubahan penting memiliki audit trail jika diperlukan.
+- Dokumentasi penggunaan dan API diperbarui.
+- Tidak ada secret yang tertanam dalam source code.
+- UI menampilkan loading, empty, success, dan error states.
+- Perhitungan dan insight dapat ditelusuri ke data sumber.
+- Tidak ada klaim bisnis yang tidak didukung data.
+
+---
+
+## 16. Open Questions
+
+Keputusan berikut harus divalidasi sebelum pengembangan penuh:
+
+1. Segmen awal: usaha makanan, reseller, atau salah satu subsegmen yang lebih spesifik?
+2. Format data transaksi apa yang paling umum digunakan oleh segmen tersebut?
+3. Seberapa lengkap data HPP yang dimiliki calon pengguna?
+4. Apakah pelanggan lebih membutuhkan analisis profitabilitas atau tindak lanjut pelanggan?
+5. Seberapa besar kesediaan membayar untuk produk?
+6. Apakah pengguna membutuhkan pencatatan manual, impor spreadsheet, atau integrasi kanal sejak awal?
+7. Apa batas minimum data agar insight pelanggan dapat dianggap layak?
+8. Model harga apa yang sesuai dengan nilai yang diberikan?
+9. Bagaimana menangani transaksi tunai, kredit, retur, diskon, dan biaya tambahan?
+10. Apakah AI assistant dibutuhkan sejak MVP atau baru setelah pengguna memahami dashboard dasar?
+
+---
+
+## 17. Final Product Definition
+
+Teman UMKM adalah platform pendukung keputusan bisnis yang membantu pemilik usaha memahami profitabilitas, aktivitas pelanggan, dan prioritas tindakan berdasarkan data operasional yang tersedia.
+
+MVP berfokus pada fondasi data yang akurat, perhitungan yang transparan, insight yang dapat dijelaskan, dan rekomendasi yang tetap berada di bawah kendali pemilik usaha.
+
+Produk tidak dimulai sebagai chatbot serba bisa. Produk dimulai sebagai sistem yang dapat dipercaya, kemudian berkembang menjadi asisten AI yang mampu membantu pekerjaan bisnis secara bertahap.
+
+**Prinsip utama produk:**
+
+> Teman UMKM tidak hanya membantu pemilik usaha mengetahui apa yang terjadi dalam bisnisnya, tetapi juga membantu mereka memahami alasannya dan menentukan langkah berikutnya berdasarkan bukti.
