@@ -2,20 +2,28 @@
 
 Status values: `todo` · `doing` · `review` · `testing` · `done` · `blocked`
 
-Current milestone: **M3 — Customers, Transactions & Inventory Management**
+Current milestone: **M4 — Finance Engine, Dashboard & Data Health**
 
-## M3 — Customers, Transactions & Inventory Management
+## M4 — Finance Engine, Dashboard & Data Health
 
 | ID | Title | Owner | Size | Status | Repo | Commit |
 |---|---|---|---|---|---|---|
-| T-030 | UI spec for Customers, Transactions & Returns/Cancellations | designer | Standard | todo | office-hub | — |
-| T-031 | API contract for Customers, Transactions, Idempotency & Stock | backend-ai | Standard | todo | office-hub | — |
-| T-032 | Implement backend Customers, Transactions, Idempotency & Stock Deductions | backend-ai | Standard | todo | backend | — |
-| T-033 | Implement frontend Customers & Transaction/POS flow | frontend | Standard | todo | frontend | — |
-| T-034 | QA verification for Transaction Idempotency & Inventory Integrity | tester | Standard | todo | — | — |
-| T-035 | M3 Milestone review and sign-off | leader | Small | todo | — | — |
+| T-040 | UI spec for Financial Dashboard, Metrics & Data Health Indicators | designer | Standard | todo | office-hub | — |
+| T-041 | API contract for Financial Summary, Daily Trends & Data Health | backend-ai | Standard | todo | office-hub | — |
+| T-042 | Implement backend Finance Engine, Summary Aggregations & Data Health | backend-ai | Standard | todo | backend | — |
+| T-043 | Implement frontend Dashboard, Financial Metric Cards & Health Badges | frontend | Standard | todo | frontend | — |
+| T-044 | QA verification for Financial Metric Calculations & Aggregations | tester | Standard | todo | — | — |
+| T-045 | M4 Milestone review and sign-off | leader | Small | todo | — | — |
 
 ## Completed Milestones
+
+### M3 — Customers, Transactions & Inventory Management (Accepted)
+- T-030: UI spec for Customers, Transactions & Returns/Cancellations (designer) — `done`
+- T-031: API contract for Customers, Transactions, Idempotency & Stock (backend-ai) — `done`
+- T-032: Implement backend Customers, Transactions, Idempotency & Stock Deductions (backend-ai) — `ff5c612` (`done`)
+- T-033: Implement frontend Customers & Transaction/POS flow (frontend) — `d6ffd5a` (`done`)
+- T-034: QA verification for Transaction Idempotency & Inventory Integrity (tester) — `ff5c612 / d6ffd5a` (`done`, Verdict: APPROVE)
+- T-035: M3 Milestone review and sign-off (leader) — `done`
 
 ### M2 — Products, Cost Versions & Pricing Calculator (Accepted)
 - T-020: UI spec for Products, Cost Versions & Pricing Calculator (designer) — `done`
