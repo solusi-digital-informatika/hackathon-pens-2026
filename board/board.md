@@ -2,20 +2,28 @@
 
 Status values: `todo` · `doing` · `review` · `testing` · `done` · `blocked`
 
-Current milestone: **M5 — CSV Import (Async)**
+Current milestone: **M6 — Insight Engine & Recommendations**
 
-## M5 — CSV Import (Async)
+## M6 — Insight Engine & Recommendations
 
 | ID | Title | Owner | Size | Status | Repo | Commit |
 |---|---|---|---|---|---|---|
-| T-050 | UI spec for CSV Import Wizard (Upload, Mapping, Validation & Progress) | designer | Standard | todo | office-hub | — |
-| T-051 | API contract for CSV Import, Mapping, Row Validation & Async Worker | backend-ai | Standard | todo | office-hub | — |
-| T-052 | Implement backend CSV Parser, Async Batch Worker & Import Rollbacks | backend-ai | Large | todo | backend | — |
-| T-053 | Implement frontend CSV Import Wizard, Mapping & Progress Polling | frontend | Standard | todo | frontend | — |
-| T-054 | QA verification for CSV Injection, Malformed Rows, Async Recovery | tester | Large | todo | — | — |
-| T-055 | M5 Milestone review and sign-off | leader | Small | todo | — | — |
+| T-060 | UI spec for Insight Cards, Recommendations, Impact Preview & Detail Modal | designer | Standard | todo | office-hub | — |
+| T-061 | API contract for Insight Rules Engine, Dismissals & Feedback | backend-ai | Standard | todo | office-hub | — |
+| T-062 | Implement backend Deterministic Insight Engine, Rule Processors & Audit | backend-ai | Large | todo | backend | — |
+| T-063 | Implement frontend Insight Feed, Recommendation Actions & Detail Modal | frontend | Standard | todo | frontend | — |
+| T-064 | QA verification for Insight Rule Correctness, Edge Cases & Data Provenance | tester | Large | todo | — | — |
+| T-065 | M6 Milestone review and sign-off | leader | Small | todo | — | — |
 
 ## Completed Milestones
+
+### M5 — CSV Import (Async) (Accepted)
+- T-050: UI spec for CSV Import Wizard (Upload, Mapping, Validation & Progress) (designer) — `done`
+- T-051: API contract for CSV Import, Mapping, Row Validation & Async Worker (backend-ai) — `done`
+- T-052: Implement backend CSV Parser, Async Batch Worker & Import Rollbacks (backend-ai) — `d007c69` (`done`)
+- T-053: Implement frontend CSV Import Wizard, Mapping & Progress Polling (frontend) — `15d0c57` (`done`)
+- T-054: QA verification for CSV Injection, Malformed Rows, Async Recovery (tester) — `0747414 / 15d0c57` (`done`, Verdict: APPROVE)
+- T-055: M5 Milestone review and sign-off (leader) — `done`
 
 ### M4 — Finance Engine, Dashboard & Data Health (Accepted)
 - T-040: UI spec for Financial Dashboard, Metrics & Data Health Indicators (designer) — `done`
